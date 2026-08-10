@@ -1,0 +1,19 @@
+{
+  "id": "Reel",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 450,
+  "headline": "Your spreadsheet is not a workflow",
+  "stats": [
+    { "value": "3", "unit": "min", "label": "to first render" },
+    { "value": "0", "unit": "€", "label": "editing software" }
+  ],
+  "subtitles": [
+    "Every reel in this repo is one JSON file.",
+    "Headline, cards, subtitles, call to action.",
+    "Change the text, hit render, ship it."
+  ],
+  "cta": "Fork the repo",
+  "clip": null
+}

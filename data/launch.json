@@ -1,0 +1,21 @@
+{
+  "id": "ReelLaunch",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 540,
+  "headline": "Ship the same video ten different ways",
+  "stats": [
+    { "value": "1", "unit": "x", "label": "component" },
+    { "value": "10", "unit": "", "label": "variants" },
+    { "value": "18", "unit": "s", "label": "per cut" }
+  ],
+  "subtitles": [
+    "One component, one JSON file per variant.",
+    "Test a different hook without touching the code.",
+    "Only the copy changes, so the comparison stays readable.",
+    "That is the whole point of the template."
+  ],
+  "cta": "Read the README",
+  "clip": null
+}

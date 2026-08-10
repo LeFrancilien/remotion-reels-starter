@@ -1,0 +1,16 @@
+node_modules/
+out/
+.env
+.env.*
+!.env.example
+
+# Your own clips. The repo ships without media on purpose.
+public/*.mp4
+public/*.mov
+public/*.webm
+public/*.mp3
+public/*.wav
+
+.DS_Store
+Thumbs.db
+*.log
