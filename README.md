@@ -117,6 +117,55 @@ colour — invisible on a white page, obvious over a dark composition. Measure t
 first and last non-uniform row of the source once and put them in `crop`, and the
 band will frame the useful area instead of the padding.
 
+### Usage tips
+
+**Content and colour live in two different files, on purpose.** A reel JSON such
+as `data/launch.json` carries only what changes from one video to the next —
+copy, numbers, duration, footage. The palette is shared by every reel, so it sits
+in `src/theme.ts`. Editing one never breaks the other.
+
+To recolour the whole template, change two values:
+
+```ts
+// src/theme.ts
+export const COLORS = {
+  accent: '#4f8cff',      // card borders, big numbers, orb 1, CTA gradient start
+  secondary: '#a855f7',   // orb 2, CTA gradient end, gradient text
+  bg: '#0d0d11',          // canvas
+  card: '#141418',        // card fill, placeholder band
+  text: '#ffffff',
+  textMuted: 'rgba(255,255,255,0.62)',
+} as const;
+```
+
+Nothing downstream hardcodes a colour, so the stat card borders, the gradient
+numbers, the CTA pill, the seam between the two halves and the two background
+orbs all follow. Keep `bg` and `card` close in luminance — the cards should read
+as raised, not as boxes.
+
+To change what a reel says, edit its JSON:
+
+```jsonc
+// data/launch.json
+{
+  "headline": "Your hook, on frame one",   // top of the frame, visible at 0:00
+  "stats": [ { "value": "10", "unit": "x", "label": "faster" } ],
+  "subtitles": [ "First segment.", "Second segment." ],
+  "cta": "Read the README",
+  "durationInFrames": 540                  // 18s at 30fps
+}
+```
+
+Two things to keep in mind while editing:
+
+- **Subtitle segments are timed by character count**, so a very short segment
+  gets a very short slot. Keep them roughly even, or plug in real timings (see
+  `src/timing.ts`).
+- **Two or three stat cards fit the width.** A fourth overflows at the current
+  font size — drop to two cards, or lower the `fontSize` in `StatCard.tsx`.
+
+Full field reference with an annotated example: [docs/customization.md](docs/customization.md).
+
 ### Things worth knowing
 
 These are the parts that cost time to discover.
@@ -253,6 +302,58 @@ parlants respectent le ratio demandé en complétant l'image utile par un aplat 
 invisible sur une page blanche, flagrant sur une composition sombre. Mesure une
 fois la première et la dernière ligne non uniforme de la source, mets-les dans
 `crop`, et le cadrage visera l'image utile et non le remplissage.
+
+### Conseils d'usage
+
+**Le contenu et la couleur vivent dans deux fichiers différents, volontairement.**
+Un JSON de déclinaison comme `data/launch.json` ne porte que ce qui change d'une
+vidéo à l'autre : textes, chiffres, durée, clip. La palette est commune à toutes
+les déclinaisons, elle est donc dans `src/theme.ts`. Toucher à l'un ne casse
+jamais l'autre.
+
+Pour recolorer tout le template, deux valeurs suffisent :
+
+```ts
+// src/theme.ts
+export const COLORS = {
+  accent: '#4f8cff',      // bordures de cartes, grands chiffres, halo 1, début du dégradé CTA
+  secondary: '#a855f7',   // halo 2, fin du dégradé CTA, texte en dégradé
+  bg: '#0d0d11',          // fond
+  card: '#141418',        // remplissage des cartes et du gabarit
+  text: '#ffffff',
+  textMuted: 'rgba(255,255,255,0.62)',
+} as const;
+```
+
+Rien en aval n'écrit une couleur en dur : bordures des cartes, chiffres en
+dégradé, pastille de CTA, liseré de la couture et halos de fond suivent tous.
+Garde `bg` et `card` proches en luminance, les cartes doivent se lire comme un
+relief et non comme des boîtes.
+
+Pour changer ce que dit une déclinaison, édite son JSON :
+
+```jsonc
+// data/launch.json
+{
+  "headline": "Ton accroche, dès la première frame",
+  "stats": [ { "value": "10", "unit": "x", "label": "plus vite" } ],
+  "subtitles": [ "Premier segment.", "Deuxième segment." ],
+  "cta": "Commente AUDIT",
+  "durationInFrames": 540                  // 18 s à 30 fps
+}
+```
+
+Deux points à garder en tête :
+
+- **Les segments de sous-titres sont calés au nombre de caractères**, donc un
+  segment très court reçoit une fenêtre très courte. Garde-les de longueur
+  comparable, ou branche de vrais timings (voir `src/timing.ts`).
+- **Deux ou trois cartes tiennent dans la largeur.** Une quatrième déborde à la
+  taille de police actuelle : passe à deux cartes, ou baisse le `fontSize` dans
+  `StatCard.tsx`.
+
+Référence complète des champs, avec un exemple commenté :
+[docs/customization.md](docs/customization.md).
 
 ### Ce qu'il faut savoir
 
